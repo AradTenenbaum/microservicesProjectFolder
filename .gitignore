@@ -1,0 +1,6 @@
+
+# exclude everything
+db-data/postgres/*
+
+# exception to the rule
+!db-data/postgres/.gitkeep 
