@@ -1,6 +1,7 @@
 
 # exclude everything
 db-data/postgres/*
+db-data/mongo/*
 
 # exception to the rule
 !db-data/postgres/.gitkeep 
