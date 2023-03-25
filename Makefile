@@ -5,6 +5,7 @@ AUTH_BINARY=authApp
 LOGGER_BINARY=loggerServiceApp
 MAIL_BINARY=mailApp
 LISTENER_BINARY=listenerApp
+FRONT_BINARY=frontEndApp
 
 ## up: starts all containers in the background without forcing build
 up:
@@ -58,6 +59,12 @@ build_listener:
 	chdir ..\listener-service && set GOOS=linux&& set GOARCH=amd64&& set CGO_ENABLED=0 && go build -o ${LISTENER_BINARY} .
 	@echo Done!
 
+## build_front_linux: builds the front-end binary as a linux executable
+build_front_linux:
+	@echo Building front end binary...
+	chdir ..\front-end && set GOOS=linux&& set GOARCH=amd64&& set CGO_ENABLED=0 && go build -o ${FRONT_BINARY} ./cmd/web
+	@echo Done!
+
 ## build_front: builds the frone end binary
 build_front:
 	@echo Building front end binary...
@@ -74,3 +81,13 @@ stop:
 	@echo Stopping front end...
 	@taskkill /IM "${FRONT_END_BINARY}" /F
 	@echo "Stopped front end!"
+
+### docker swarm
+## deploy app
+deploy:
+	@echo Deploy using docker swarm
+	docker stack deploy -c .\swarm.yml myapp
+
+remove:
+	@echo Remove deployment, delete containers
+	docker stack rm myapp
