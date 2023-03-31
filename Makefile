@@ -83,11 +83,25 @@ stop:
 	@echo "Stopped front end!"
 
 ### docker swarm
-## deploy app
-deploy:
+## deploy app using docker swarm
+deploy_swarm:
 	@echo Deploy using docker swarm
 	docker stack deploy -c .\swarm.yml myapp
 
-remove:
+remove_swarm:
 	@echo Remove deployment, delete containers
 	docker stack rm myapp
+
+
+### Kubernetes
+## apply all k8s
+apply_k8s:
+	kubectl apply -f k8s
+
+## run dashboard
+dashboard:
+	minikube dashboard
+
+## run postgres as remote db
+postgres:
+	docker-compose -f postgres.yml up -d
