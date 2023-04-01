@@ -98,6 +98,10 @@ remove_swarm:
 apply_k8s:
 	kubectl apply -f k8s
 
+## create external ip to all load balancer services
+expose_services:
+	minikube tunnel
+
 ## run dashboard
 dashboard:
 	minikube dashboard
@@ -105,3 +109,7 @@ dashboard:
 ## run postgres as remote db
 postgres:
 	docker-compose -f postgres.yml up -d
+
+## shutdown postgres
+postgres_down:
+	docker-compose -f postgres.yml down
